@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: . # Busca el Dockerfile en el directorio actual
+      dockerfile: Dockerfile # Especifica el nombre del Dockerfile
+    container_name: react-vite-app
+    ports:
+      - "5000:80" # Mapea el puerto 80 del contenedor al puerto 3000 de tu máquina host
+    # environment:
+    #   - VITE_API_URL=http://localhost:8080/api # Ejemplo: Define variables de entorno para Vite
+    restart: always # Reinicia el contenedor si falla
