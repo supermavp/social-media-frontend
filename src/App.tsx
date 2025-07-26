@@ -26,7 +26,7 @@ function App() {
       const queryParams: PublicationQueryDTO = {
         page: 1,
         limit: 10,
-        userId: userId, // Ahora puedes pasar el userId si lo necesitas
+        userId: userId,
       };
       const response = await publicationService.getPublications(token, queryParams);
       setPosts(response.publications);
@@ -76,7 +76,7 @@ function App() {
       // 2. Cargar publicaciones SOLO SI la autenticación fue exitosa
       if (authenticated && tokenToUse) {
         // Llama a loadPublications con el token y el ID de usuario obtenidos
-        loadPublications(tokenToUse, user?.id);
+        loadPublications(tokenToUse);
       } else {
         setPosts([]); // Limpiar si no hay autenticación
       }
@@ -114,7 +114,7 @@ function App() {
   const handlePostLike = async (publicationId: number) => {
     if (currentUser && accessToken) {
       await publicationService.createLike(currentUser.id, publicationId, accessToken);
-      loadPublications(accessToken, currentUser.id);
+      loadPublications(accessToken);
     }
   }
 
@@ -129,7 +129,7 @@ function App() {
   const handleCreatePublication = async (content: string) => {
     if (currentUser && accessToken) {
       await publicationService.newPublication(content, currentUser?.id, accessToken);
-      loadPublications(accessToken, currentUser.id);
+      loadPublications(accessToken);
       handleCloseModal();
     }
   }
